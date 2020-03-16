@@ -13,7 +13,6 @@ import React, { Component } from 'react';
 import CardFront from './CardFront.js';
 import CardBack from './CardBack.js';
 
-
 const posterMap = {
   'choux-maru-istanbul': cmi,
   'choux-maru-part-1': cmp1,
@@ -27,17 +26,38 @@ const posterMap = {
   'default': defaultPoster
 }
 
+console.log(posterMap['the-trash-man'])
+
+console.log(this)
+
+
+
 export default class MovieCard extends Component {
 
+  findPosterUrl = (poster) => (
+    posterMap[poster]
+  )
+  
+
   render() {
+    console.log(this.props)
+
     return (
+      
       <div className="movie-card">
         {/* which component should receive which props? */}
-        <CardFront />
-        <CardBack />
+        <CardFront poster={this.findPosterUrl(this.props.poster)}/>
+        <CardBack title={this.props.title} genres={this.props.genres} IMDBRating={this.props.IMDBRating}/>
       </div>
     )
   }
 }
 
 // Don't forget your default props!
+
+MovieCard.defaultProps = {
+  poster: 'default',
+  title: "Unknown",
+  IMDBRating: null,
+  genres: ['No Genre(s) Found']
+}
